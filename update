@@ -12,7 +12,7 @@
 #                - Used Arch wiki as base - https://wiki.archlinux.org/index.php/System_maintenance
 #v0.2 - 20200323 - First script for updating Arch
 #v1.0 - 20200402 - Combined update and maintenance scripts
-
+#
 echo "------------------------------------------------------------------------"
 echo "Updating Arch..."
 echo "------------------------------------------------------------------------"
