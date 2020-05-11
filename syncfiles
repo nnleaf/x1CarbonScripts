@@ -1,0 +1,35 @@
+#!/bin/bash
+#     ////     //  ////     //
+#    // //    //  // //    //
+#   //  //   //  //  //   //
+#  //   //  //  //   //  //
+# //    // //  //    // //
+#//     ////  //     ////
+#=============
+#//CHANGELOG//
+#=============
+#20200510 - Created to sync files between vault and x1
+#           It will copy files from vault to x1 without deleting anything, then transfer x1 files to vault
+
+#Backup Keepass
+echo "------------------------------------------------------------------------"
+echo "Backing up Keepass"
+echo "------------------------------------------------------------------------"
+cp -r /home/nn/Keys/ /home/nn/Documents/Keepass/Key/key_"$(date +%Y-%m-%d_%H%M%S)"/
+cp -r /home/nn/Dropbox/Key/ /home/nn/Documents/Keepass/Database/database_"$(date +%Y-%m-%d_%H%M%S)"/
+echo "------------------------------------------------------------------------"
+echo "Syncing Documents and Linux files from Vault to x1"
+echo "------------------------------------------------------------------------"
+#Mount n1 vault
+sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
+#Sync Documents and Linux files from Vault to x1 without deleting x1 files
+sudo rsync -av --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /mnt/tmp/Files/Documents /home/nn/Documents
+sudo rsync -av --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /mnt/tmp/Files/ComputerFiles/2.Linux/ /home/nn/Linux/
+echo "------------------------------------------------------------------------"
+echo "Backup Documents and Linux files from x1 to Vault"
+echo "------------------------------------------------------------------------"
+#Backup Documents and Linux files from x1 to Vault
+sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
+sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/ 
+#unmount n1 vault
+sudo umount -t cifs //192.168.1.111/n1

@@ -11,17 +11,19 @@
 #v0.1 - 20200413 - Created backupfiles script to backup linux files to vault
 
 echo "------------------------------------------------------------------------"
-echo "Backup linux files dry-run..."
+echo "Backup Vault and Linux files dry-run..."
 echo "------------------------------------------------------------------------"
-sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o user=nn
+sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
+sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
 sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/
 read -p "Run real backup to vault? (y/n)"
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "------------------------------------------------------------------------"
-  echo "Backing up linux files to vault"
+  echo "Backing up Vault and Linux files to vault"
   echo "------------------------------------------------------------------------"
-  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/
+  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
+  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/ 
   sudo umount -t cifs //192.168.1.111/n1
 fi
