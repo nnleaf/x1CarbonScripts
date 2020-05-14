@@ -34,6 +34,6 @@ echo "--[ Backup Documents and Linux files from x1 to Vault ]--"
 echo "---------------------------------------------------------"
 #Backup Documents and Linux files from x1 to Vault
 sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/ /mnt/tmp/Files/Documents/
-sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ --exclude={'Debian/Archive','Arch/Archive'} /mnt/tmp/Files/ComputerFiles/Linux/ 
+sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ --exclude={'Debian/Archive','Arch/Archive'} /mnt/tmp/Files/ComputerFiles/Linux/ 
 #unmount n1 vault
 sudo umount -t cifs //192.168.1.111/n1
