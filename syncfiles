@@ -15,6 +15,7 @@
 echo "----------------------"
 echo "--[ Mounting Vault ]--"
 echo "----------------------"
+#Mount n1 vault
 sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
 echo "---------------------------------------------------"
 echo "--[ Do you want to check using a Dry-Run? (y/n) ]--"
@@ -56,8 +57,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]
   echo "----------------------------------------------------------"
   echo "--[ Syncing Documents and Linux files from Vault to x1 ]--"
   echo "----------------------------------------------------------"
-  #Mount n1 vault
-  sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
   #Sync Documents and Linux files from Vault to x1 without deleting x1 files
   rsync -avh --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /mnt/tmp/Files/Documents/ /home/nn/Documents/
   rsync -avh --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" --exclude={'Debian/Archive','Arch/Archive'} /mnt/tmp/Files/ComputerFiles/Linux/ /home/nn/Linux/
