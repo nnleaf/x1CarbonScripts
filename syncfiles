@@ -20,19 +20,19 @@ echo "-------------------------"
 echo "--[ Backing up Resume ]--"
 echo "-------------------------"
 cp -r /home/nn/Dropbox/Resume/ /home/nn/Documents/Resume/resume_"$(date +%Y-%m-%d_%H%M%S)"/
-echo "------------------------------------------------------------------------"
-echo "Syncing Documents and Linux files from Vault to x1"
-echo "------------------------------------------------------------------------"
+echo "----------------------------------------------------------"
+echo "--[ Syncing Documents and Linux files from Vault to x1 ]--"
+echo "----------------------------------------------------------"
 #Mount n1 vault
 sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
 #Sync Documents and Linux files from Vault to x1 without deleting x1 files
 sudo rsync -av --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /mnt/tmp/Files/Documents /home/nn/Documents
 sudo rsync -av --progress --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /mnt/tmp/Files/ComputerFiles/2.Linux/ /home/nn/Linux/
-echo "------------------------------------------------------------------------"
-echo "Backup Documents and Linux files from x1 to Vault"
-echo "------------------------------------------------------------------------"
+echo "---------------------------------------------------------"
+echo "--[ Backup Documents and Linux files from x1 to Vault ]--"
+echo "---------------------------------------------------------"
 #Backup Documents and Linux files from x1 to Vault
 sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
-sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/ 
+sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ /mnt/tmp/Files/ComputerFiles/Linux/ 
 #unmount n1 vault
 sudo umount -t cifs //192.168.1.111/n1
