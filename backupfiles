@@ -9,21 +9,23 @@
 #//CHANGELOG//
 #=============
 #v0.1 - 20200413 - Created backupfiles script to backup linux files to vault
-
-echo "------------------------------------------------"
-echo "--[ Backup Documents and Linux files dry-run ]--"
-echo "------------------------------------------------"
+echo "----------------------"
+echo "--[ Mounting Vault ]--"
+echo "----------------------"
 sudo mount -t cifs //192.168.1.111/n1 /mnt/tmp -o credentials=/home/nn/Keys/.vaultpassword
-sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
-sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/
+echo "----------------------------------------------------"
+echo "--[ 1:1 Backup Documents and Linux files dry-run ]--"
+echo "----------------------------------------------------"
+sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/ /mnt/tmp/Files/Documents/
+sudo rsync -avn --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ --exclude={'Debian/Archive','Arch/Archive'} /mnt/tmp/Files/ComputerFiles/Linux/ 
 read -p "Run real backup to vault? (y/n)"
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  echo "-----------------------------------------------------"
-  echo "--[ Backing up Documents and Linux files to vault ]--"
-  echo "-----------------------------------------------------"
-  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents /mnt/tmp/Files/Documents
-  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ /mnt/tmp/Files/ComputerFiles/2.Linux/ 
+  echo "---------------------------------------------------------"
+  echo "--[ 1:1 Backing up Documents and Linux files to vault ]--"
+  echo "---------------------------------------------------------"
+  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Documents/ /mnt/tmp/Files/Documents/
+  sudo rsync -av --progress --delete --stats --ignore-existing --ignore-errors -s -e "ssh" --rsync-path="sudo rsync" /home/nn/Linux/ --exclude={'Debian/Archive','Arch/Archive'} /mnt/tmp/Files/ComputerFiles/Linux/ 
   sudo umount -t cifs //192.168.1.111/n1
 fi
