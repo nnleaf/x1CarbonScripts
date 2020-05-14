@@ -22,6 +22,15 @@ read -p "Run real backup to vault? (y/n)"
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
+  echo "--------------------------"
+  echo "--[ Backing up Keepass ]--"
+  echo "--------------------------"
+  cp -r /home/nn/Keys/ /home/nn/Documents/Keepass/Key/key_"$(date +%Y-%m-%d_%H%M%S)"/
+  cp -r /home/nn/Dropbox/Key/ /home/nn/Documents/Keepass/Database/database_"$(date +%Y-%m-%d_%H%M%S)"/
+  echo "-------------------------"
+  echo "--[ Backing up Resume ]--"
+  echo "-------------------------"
+  cp -r /home/nn/Dropbox/Resume/ /home/nn/Documents/Resume/resume_"$(date +%Y-%m-%d_%H%M%S)"/
   echo "---------------------------------------------------------"
   echo "--[ 1:1 Backing up Documents and Linux files to vault ]--"
   echo "---------------------------------------------------------"

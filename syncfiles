@@ -12,15 +12,6 @@
 #           It will copy files from vault to x1 without deleting anything, then transfer x1 files to vault
 #20200514 - Made critical changes to rsync to exclude files
 #
-echo "--------------------------"
-echo "--[ Backing up Keepass ]--"
-echo "--------------------------"
-cp -r /home/nn/Keys/ /home/nn/Documents/Keepass/Key/key_"$(date +%Y-%m-%d_%H%M%S)"/
-cp -r /home/nn/Dropbox/Key/ /home/nn/Documents/Keepass/Database/database_"$(date +%Y-%m-%d_%H%M%S)"/
-echo "-------------------------"
-echo "--[ Backing up Resume ]--"
-echo "-------------------------"
-cp -r /home/nn/Dropbox/Resume/ /home/nn/Documents/Resume/resume_"$(date +%Y-%m-%d_%H%M%S)"/
 echo "----------------------"
 echo "--[ Mounting Vault ]--"
 echo "----------------------"
@@ -53,6 +44,15 @@ read -p ""
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
   then
+  echo "--------------------------"
+  echo "--[ Backing up Keepass ]--"
+  echo "--------------------------"
+  cp -r /home/nn/Keys/ /home/nn/Documents/Keepass/Key/key_"$(date +%Y-%m-%d_%H%M%S)"/
+  cp -r /home/nn/Dropbox/Key/ /home/nn/Documents/Keepass/Database/database_"$(date +%Y-%m-%d_%H%M%S)"/
+  echo "-------------------------"
+  echo "--[ Backing up Resume ]--"
+  echo "-------------------------"
+  cp -r /home/nn/Dropbox/Resume/ /home/nn/Documents/Resume/resume_"$(date +%Y-%m-%d_%H%M%S)"/
   echo "----------------------------------------------------------"
   echo "--[ Syncing Documents and Linux files from Vault to x1 ]--"
   echo "----------------------------------------------------------"
