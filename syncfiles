@@ -56,7 +56,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]
   sh -c 'echo " //    // //  //    // //" >> /home/nn/logs/backup_page.log'
   sh -c 'echo "//     ////  //     ////" >> /home/nn/logs/backup_page.log'
   sh -c 'echo " " >> /home/nn/logs/backup_page.log'
-  sh -c 'echo "x1 Carbon syncfiles script ran on `date`\n" >> /home/nn/logs/backup_page.log'
+  sh -c 'echo "x1 Carbon syncfiles script ran on `date`" >> /home/nn/logs/backup_page.log'
   sh -c 'echo " " >> /home/nn/logs/backup_page.log'
   echo "--------------------------"
   echo "--[ Backing up Keepass ]--"
