@@ -1,0 +1,19 @@
+#!/bin/bash
+#     ////     //  ////     //
+#    // //    //  // //    //
+#   //  //   //  //  //   //
+#  //   //  //  //   //  //
+# //    // //  //    // //
+#//     ////  //     ////
+#=============
+#//CHANGELOG//
+#=============
+# 20200104 - Toggle touchpad status
+#
+status=$(gsettings get org.gnome.desktop.peripherals.touchpad send-events)
+
+if [[ "$status" == "'enabled'" ]]; then
+    gsettings set org.gnome.desktop.peripherals.touchpad send-events disabled
+else
+    gsettings set org.gnome.desktop.peripherals.touchpad send-events enabled
+fi
