@@ -1,0 +1,52 @@
+#!/bin/bash
+#     ////     //  ////     //
+#    // //    //  // //    //
+#   //  //   //  //  //   //
+#  //   //  //  //   //  //
+# //    // //  //    // //
+#//     ////  //     ////
+#=============
+#//CHANGELOG//
+#=============
+# 20200706 - Created script to check NNServer logs
+#
+echo "-------------------------------------------"
+echo "--[ Mount NNServer to Check Logs? (y/n) ]--"
+echo "-------------------------------------------"
+read -p ""
+if [[ $REPLY =~ ^[Yy]$ ]] 
+then
+  sudo mount -t cifs //10.0.100.10/NNVault /mnt/nnserver -o credentials=/home/nn/.smbnnvault
+  echo "----------------------------------------"
+  echo "--[ Check Latest Backup Files? (y/n) ]--"
+  echo "----------------------------------------"
+  read -p ""
+  if [[ $REPLY =~ ^[Yy]$ ]] 
+  then
+    ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
+  fi
+  echo "-----------------------------------"
+  echo "--[ Check ghettoVCB Logs? (y/n) ]--"
+  echo "-----------------------------------"
+  read -p ""
+  if [[ $REPLY =~ ^[Yy]$ ]] 
+  then
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/log/* |tail -1)
+  fi
+  echo "-----------------------------------"
+  echo "--[ Check NNBackup Logs? (y/n) ]--"
+  echo "-----------------------------------"
+  read -p ""
+  if [[ $REPLY =~ ^[Yy]$ ]] 
+  then
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/NNBackup/Logs/* |tail -1)
+  fi
+  sudo umount -t cifs //10.0.100.10/NNVault
+fi
