@@ -23,14 +23,16 @@ then
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
+    echo "--[ Daily Backups ]--"
     ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
+    echo "--[ Weekly Backups ]--"
+    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
   fi
   echo "-----------------------------------"
   echo "--[ Check ghettoVCB Logs? (y/n) ]--"
