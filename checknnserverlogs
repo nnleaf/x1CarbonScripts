@@ -26,6 +26,8 @@ then
     echo "--[ Daily Backups ]--"
     ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/ESXi/bin/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/backup | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
