@@ -35,6 +35,8 @@ then
     ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
+    echo "--[ Monthly Backups ]--"
+    ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
   fi
   echo "-----------------------------------"
   echo "--[ Check ghettoVCB Logs? (y/n) ]--"
@@ -51,6 +53,14 @@ then
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
     cat $(ls -rt /mnt/nnserver/Backup/NNServer/NNBackup/Logs/* |tail -1)
+  fi
+  echo "---------------------------------------"
+  echo "--[ Check Remote Backup Logs? (y/n) ]--"
+  echo "---------------------------------------"
+  read -p ""
+  if [[ $REPLY =~ ^[Yy]$ ]] 
+  then
+    tail -15 $(ls -rt /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/* |tail -1)
   fi
   sudo umount -t cifs //10.0.100.10/NNVault
 fi
