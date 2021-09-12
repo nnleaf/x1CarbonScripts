@@ -1,0 +1,4 @@
+#!/bin/sh
+yaycache="$(find /home/nn/.cache/yay -maxdepth 1 -type d | awk '{ print "-c " $1 }' | tail -n +2)"
+echo "==> Keep last 3 installed versions"
+/usr/bin/paccache -rk3 -c /var/cache/pacman/pkg $yaycache

@@ -31,6 +31,7 @@ then
     ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
+    ls -t /mnt/nnserver/Backup/NNServer/DMZ.MinecraftFriends/ | head -n1
     echo "--[ Weekly Backups ]--"
     ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
     ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
