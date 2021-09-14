@@ -1,46 +1,61 @@
 #!/bin/bash
-#     ////     //  ////     //
-#    // //    //  // //    //
-#   //  //   //  //  //   //
-#  //   //  //  //   //  //
-# //    // //  //    // //
-#//     ////  //     ////
+#   _  ___  __                         
+#  / |/ / |/ /
+# /    /    /   
+#/_/|_/_/|_/  
 #=============
 #//CHANGELOG//
 #=============
 # 20200706 - Created script to check NNServer logs
+# 20210913 - Added colors for easier reading & logo change
 #
+# tput color variables
+RESET=`tput sgr0`
+BOLD=`tput bold`
+BLACK=`tput setaf 0`
+RED=`tput setaf 1`
+GREEN=`tput setaf 2`
+YELLOW=`tput setaf 3`
+BLUE=`tput setaf 4`
+MAGENTA=`tput setaf 5`
+CYAN=`tput setaf 6`
+WHITE=`tput setaf 7`
+#
+echo "   _  ___  ______                        "
+echo "  / |/ / |/ / __/__ _____  _____ ____    "
+echo " /    /    /\ \/ -_) __/ |/ / -_) __/    "
+echo "/_/|_/_/|_/___/\__/_/  |___/\__/_/       "
 echo "-------------------------------------------"
-echo "--[ Mount NNServer to Check Logs? (y/n) ]--"
+echo "--[ ${YELLOW}${BOLD}Mount NNServer to Check Logs? (y/n)${RESET} ]--"
 echo "-------------------------------------------"
 read -p ""
 if [[ $REPLY =~ ^[Yy]$ ]] 
 then
   sudo mount -t cifs //10.0.100.10/NNVault /mnt/nnserver -o credentials=/home/nn/.smbnnvault
   echo "----------------------------------------"
-  echo "--[ Check Latest Backup Files? (y/n) ]--"
+  echo "--[ ${YELLOW}${BOLD}Check Latest Backup Files? (y/n)${RESET} ]--"
   echo "----------------------------------------"
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
-    echo "--[ Daily Backups ]--"
-    ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/ESXi/bin/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/backup | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/DMZ.MinecraftFriends/ | head -n1
-    echo "--[ Weekly Backups ]--"
-    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
-    ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
-    echo "--[ Monthly Backups ]--"
-    ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
+    echo "--[ ${CYAN}Daily Backups${RESET} ]--"
+    echo -n "${BOLD}ESXi Config    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
+    echo -n "${BOLD}ESXi USB       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
+    echo -n "${BOLD}ESXi Scripts   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/bin/ | head -n1
+    echo -n "${BOLD}ESXi ghettoVCB | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/backup | head -n1
+    echo -n "${BOLD}pfSense        | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
+    echo -n "${BOLD}Bookstack      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
+    echo -n "${BOLD}NextCloud      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
+    echo -n "${BOLD}Minecraft      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/DMZ.MinecraftFriends/ | head -n1
+    echo "--[ ${CYAN}Weekly Backups${RESET} ]--"
+    echo -n "${BOLD}Plex           | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
+    echo -n "${BOLD}Tautulli       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
+    echo -n "${BOLD}NNVault USB    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
+    echo "--[ ${CYAN}Monthly Backups${RESET} ]--"
+    echo -n "${BOLD}RemoteBackup   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
   fi
   echo "-----------------------------------"
-  echo "--[ Check ghettoVCB Logs? (y/n) ]--"
+  echo "--[ ${YELLOW}${BOLD}Check ghettoVCB Logs? (y/n)${RESET} ]--"
   echo "-----------------------------------"
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
@@ -48,7 +63,7 @@ then
     cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/log/* |tail -1)
   fi
   echo "-----------------------------------"
-  echo "--[ Check NNBackup Logs? (y/n) ]--"
+  echo "--[ ${YELLOW}${BOLD}Check NNBackup Logs? (y/n)${RESET} ]--"
   echo "-----------------------------------"
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
@@ -56,7 +71,7 @@ then
     cat $(ls -rt /mnt/nnserver/Backup/NNServer/NNBackup/Logs/* |tail -1)
   fi
   echo "---------------------------------------"
-  echo "--[ Check Remote Backup Logs? (y/n) ]--"
+  echo "--[ ${YELLOW}${BOLD}Check Remote Backup Logs? (y/n)${RESET} ]--"
   echo "---------------------------------------"
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
