@@ -8,6 +8,7 @@
 #=============
 # 20200706 - Created script to check NNServer logs
 # 20210913 - Added colors for easier reading & logo change
+# 20211121 - Added support for multiple servers
 #
 # tput color variables
 RESET=`tput sgr0`
@@ -38,21 +39,33 @@ then
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
+    #Check Individual Server Backups
+    echo "--[ ${CYAN}Daily R710 Backups${RESET} ]--"
+    echo -n "${BOLD}R710 ESXi Scripts      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/bin/ | head -n1
+    echo -n "${BOLD}R710 ESXi Config       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/esxi_configuration/ | head -n1
+    echo -n "${BOLD}R710 ESXi USB          | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/usb_backup/ | head -n1
+    echo -n "${BOLD}R710 ESXi ghettoVCB    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/backup | head -n1
+    echo "--[ ${CYAN}Daily R620 Backups${RESET} ]--"
+    echo -n "${BOLD}R620 ESXi Scripts      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/bin/ | head -n1
+    echo -n "${BOLD}R620 ESXi Config       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/esxi_configuration/ | head -n1
+    echo -n "${BOLD}R620 ESXi USB          | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/usb_backup/ | head -n1
+    echo -n "${BOLD}R620 ESXi ghettoVCB    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/backup | head -n1
+    #Check Specific VM Backup Files
     echo "--[ ${CYAN}Daily Backups${RESET} ]--"
-    echo -n "${BOLD}ESXi Config    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/esxi_configuration/ | head -n1
-    echo -n "${BOLD}ESXi USB       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/usb_backup/ | head -n1
-    echo -n "${BOLD}ESXi Scripts   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/bin/ | head -n1
-    echo -n "${BOLD}ESXi ghettoVCB | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/backup | head -n1
-    echo -n "${BOLD}pfSense        | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
-    echo -n "${BOLD}Bookstack      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
-    echo -n "${BOLD}NextCloud      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
-    echo -n "${BOLD}Minecraft      | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/DMZ.MinecraftFriends/ | head -n1
+    echo -n "${BOLD}pfSense                | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/PFSense/Configuration/ | head -n1
+    echo -n "${BOLD}Bookstack              | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.BookStack/Backup/ | head -n1
+    echo -n "${BOLD}NextCloud              | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/WEB.NextCloud/backup/ | head -n1
+    echo -n "${BOLD}Minecraft              | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/DMZ.MinecraftFriends/ | head -n1
     echo "--[ ${CYAN}Weekly Backups${RESET} ]--"
-    echo -n "${BOLD}Plex           | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
-    echo -n "${BOLD}Tautulli       | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
-    echo -n "${BOLD}NNVault USB    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
+    echo -n "${BOLD}Plex                   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
+    echo -n "${BOLD}Tautulli               | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
+    echo -n "${BOLD}NNVault USB            | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
+    echo -n "${BOLD}R710 ghettoVCB THIN    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thin_log | head -n1
+    echo -n "${BOLD}R710 ghettoVCB THICK   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thick_log | head -n1
+    echo -n "${BOLD}R620 ghettoVCB THIN    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thin_log | head -n1
+    echo -n "${BOLD}R620 ghettoVCB THICK   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thick_log | head -n1
     echo "--[ ${CYAN}Monthly Backups${RESET} ]--"
-    echo -n "${BOLD}RemoteBackup   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
+    echo -n "${BOLD}RemoteBackup           | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
   fi
   echo "-----------------------------------"
   echo "--[ ${YELLOW}${BOLD}Check ghettoVCB Logs? (y/n)${RESET} ]--"
@@ -60,7 +73,15 @@ then
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
-    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/ghettoVCB/log/* |tail -1)
+    echo "--[ ${CYAN}R710 - Thin ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thin_log/* |tail -1)
+    echo "--[ ${CYAN}R710 - Thick ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thick_log/* |tail -1)
+
+    echo "--[ ${CYAN}R620 - Thin ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thin_log/* |tail -1)
+    echo "--[ ${CYAN}R620 - Thick ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thick_log/* |tail -1)
   fi
   echo "-----------------------------------"
   echo "--[ ${YELLOW}${BOLD}Check NNBackup Logs? (y/n)${RESET} ]--"
