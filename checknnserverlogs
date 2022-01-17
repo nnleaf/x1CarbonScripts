@@ -60,10 +60,9 @@ then
     echo -n "${BOLD}Plex                   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/plex_backup/ | head -n1
     echo -n "${BOLD}Tautulli               | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.Plex/tautulli_backup/ | head -n1
     echo -n "${BOLD}NNVault USB            | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/NNVault/usbbackup/ | head -n1
-    echo -n "${BOLD}R710 ghettoVCB THIN    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thin_log | head -n1
-    echo -n "${BOLD}R710 ghettoVCB THICK   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thick_log | head -n1
-    echo -n "${BOLD}R620 ghettoVCB THIN    | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thin_log | head -n1
-    echo -n "${BOLD}R620 ghettoVCB THICK   | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thick_log | head -n1
+    echo -n "${BOLD}R710 ghettoVCB         | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/log | head -n1
+    echo -n "${BOLD}R620 ghettoVCB         | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/log | head -n1
+    echo -n "${BOLD}NNBackup               | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/NNBackup/Logs | head -n1
     echo "--[ ${CYAN}Monthly Backups${RESET} ]--"
     echo -n "${BOLD}RemoteBackup           | ${RESET}" && ls -t /mnt/nnserver/Backup/NNServer/HOME.RemoteBackup/logs/ | head -n1
   fi
@@ -73,15 +72,10 @@ then
   read -p ""
   if [[ $REPLY =~ ^[Yy]$ ]] 
   then
-    echo "--[ ${CYAN}R710 - Thin ghettoVCB VM's${RESET} ]--"
-    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thin_log/* |tail -1)
-    echo "--[ ${CYAN}R710 - Thick ghettoVCB VM's${RESET} ]--"
-    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/thick_log/* |tail -1)
-
-    echo "--[ ${CYAN}R620 - Thin ghettoVCB VM's${RESET} ]--"
-    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thin_log/* |tail -1)
-    echo "--[ ${CYAN}R620 - Thick ghettoVCB VM's${RESET} ]--"
-    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/thick_log/* |tail -1)
+    echo "--[ ${CYAN}R710 - ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R710/ghettoVCB/log/* |tail -1)
+    echo "--[ ${CYAN}R620 - ghettoVCB VM's${RESET} ]--"
+    cat $(ls -rt /mnt/nnserver/Backup/NNServer/ESXi/R620/ghettoVCB/log/* |tail -1)
   fi
   echo "-----------------------------------"
   echo "--[ ${YELLOW}${BOLD}Check NNBackup Logs? (y/n)${RESET} ]--"
